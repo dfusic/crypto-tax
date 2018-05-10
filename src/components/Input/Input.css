@@ -1,0 +1,7 @@
+.Input label{
+  display: block;
+  text-align: left;
+}
+.Input > input{
+  padding: 5px;
+}

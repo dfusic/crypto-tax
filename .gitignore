@@ -19,3 +19,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# currency: https://www.amdoren.com/api/currency.php?api_key=nEpz5JQGetz6cs8VN9C2Brd874uvkB&from=HRK&to=EUR
+# cmc: https://api.coinmarketcap.com/v2/listings/
