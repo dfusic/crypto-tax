@@ -12,7 +12,11 @@ class App extends Component {
     profit: '0.00',
     ulozeno: '0.00',
     prodano: '0.00',
-    mjestoStanovanja: ''
+    mjestoStanovanja: '',
+    profitUSD: '0.00',
+    profitEUR: '0.00',
+    profitBTC: '0.00',
+    profitETH: '0.00'
   }
 
   UlozenoInputChangeHandler = (event) => {
@@ -60,7 +64,43 @@ class App extends Component {
       this.setState({
         troskovi: troskovi.toFixed(2),
         profit: profit.toFixed(2)
-      })
+      });
+      // get profit USD price
+      fetch('https://free.currencyconverterapi.com/api/v5/convert?q=USD_HRK,HRK_USD&compact=ultra')
+        .then((response)=>{
+          return response.json();
+        }).then((json) =>{
+          let profitUsd= this.state.profit * json.HRK_USD;
+          this.setState({
+            profitUSD: profitUsd.toFixed(2)
+          });
+          fetch('https://api.coinmarketcap.com/v2/ticker/?convert=BTC&limit=2')
+          .then((response) => {
+            return response.json();
+          }).then((json)=>{
+            console.log(json)
+            let btcUsdPrice = json.data[1].quotes.USD.price;
+            let usdBtcPrice = 1 / btcUsdPrice;
+            let ethUsdPrice = json.data[1027].quotes.USD.price;
+            let usdEthPrice = 1 / ethUsdPrice;
+            this.setState({
+              profitBTC: this.state.profitUSD * usdBtcPrice,
+              profitETH: this.state.profitUSD * usdEthPrice,
+            });
+          })
+        });
+        // profit EUR price
+        fetch('https://free.currencyconverterapi.com/api/v5/convert?q=EUR_HRK,HRK_EUR&compact=ultra')
+          .then((response)=>{
+            return response.json();
+          }).then((json)=>{
+            let profitEur = this.state.profit * json.HRK_EUR
+            this.setState({
+              profitEUR: profitEur.toFixed(2),
+            })
+          });
+          
+          
     })
   }
 
@@ -82,7 +122,11 @@ class App extends Component {
         porez={this.state.porez} 
         prirez={this.state.prirez} 
         troskovi={this.state.troskovi} 
-        profit={this.state.profit}/>
+        profit={this.state.profit}
+        profitUSD={this.state.profitUSD}
+        profitEUR={this.state.profitEUR}
+        profitBTC={this.state.profitBTC}
+        profitETH={this.state.profitETH}/>
         <input 
         type="submit" 
         value="Calculate" 
