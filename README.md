@@ -22,7 +22,7 @@ Depending on your place of the residence, surtax changes (example: Zagreb = 18%,
 
 or visit 
 
-[https://www.cryptotax.website](www.cryptotax.website)
+[https://www.cryptotax.website](https://www.cryptotax.website)
 
 
 # Technologies used
